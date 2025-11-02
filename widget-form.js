@@ -1,7 +1,7 @@
 // Widget form step-by-step navigation
 document.addEventListener('DOMContentLoaded', function() {
     let currentStep = 1;
-    const totalSteps = 6;
+    const totalSteps = 7;
     const completedSteps = new Set();
     
     // Initialize phone mask
@@ -36,28 +36,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     
-    // Back button on final step
-    const btnBackFinal = document.getElementById('btnBackFinal');
-    if (btnBackFinal) {
-        btnBackFinal.addEventListener('click', function() {
-            const widgetFinal = document.getElementById('widgetFinal');
-            widgetFinal.style.display = 'none';
-            const widgetNav = document.getElementById('widgetNav');
-            widgetNav.style.display = 'flex';
-            goToStep(6);
-        });
-    }
-    
     // Next button handler
     document.getElementById('btnNext').addEventListener('click', function() {
         if (validateCurrentStep()) {
             completedSteps.add(currentStep);
             if (currentStep < totalSteps) {
                 goToStep(currentStep + 1);
-            } else {
-                // Step 6 completed, show final step automatically
-                showFinalStep();
             }
+            // Step 7 doesn't have "Next" button, submit is handled by checkbox
         }
     });
     
@@ -102,26 +88,18 @@ document.addEventListener('DOMContentLoaded', function() {
             btnBack.style.display = 'none';
         }
         
-        // Show/hide next button and final step
+        // Show/hide next button
         const btnNext = document.getElementById('btnNext');
-        const widgetFinal = document.getElementById('widgetFinal');
         const widgetNav = document.getElementById('widgetNav');
         
-        if (currentStep === totalSteps && completedSteps.has(totalSteps)) {
-            // Step 6 is completed, show final step
+        if (currentStep === totalSteps) {
+            // Step 7 - hide next button, submit button is handled by checkbox
             btnNext.style.display = 'none';
-            widgetNav.style.display = 'none';
-            widgetFinal.style.display = 'block';
-        } else if (currentStep === totalSteps) {
-            // Step 6 is active but not completed yet
-            btnNext.style.display = 'inline-block';
             widgetNav.style.display = 'flex';
-            widgetFinal.style.display = 'none';
         } else {
-            // Steps 1-5
+            // Steps 1-6
             btnNext.style.display = 'inline-block';
             widgetNav.style.display = 'flex';
-            widgetFinal.style.display = 'none';
         }
     }
     
@@ -165,6 +143,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     isValid = true;
                 }
             });
+        } else if (stepType === 'consent') {
+            const consentCheckbox = step.querySelector('input[type="checkbox"][data-step]');
+            if (consentCheckbox && consentCheckbox.checked) {
+                isValid = true;
+            }
         }
         
         if (!isValid) {
@@ -182,18 +165,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function showFinalStep() {
+        // Step 6 completed, move to step 7
         completedSteps.add(currentStep);
-        updateStepDisplay();
-        
-        // Scroll to final step
-        setTimeout(() => {
-            const widgetFinal = document.getElementById('widgetFinal');
-            if (widgetFinal) {
-                widgetFinal.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                // Отправка размера после показа финального шага
-                setTimeout(sendHeightToParent, 100);
-            }
-        }, 300);
+        goToStep(7);
     }
     
     function initAutoAdvance() {
@@ -219,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (validateCurrentStep()) {
                         completedSteps.add(currentStep);
                         
-                        // Auto-show final step when step 6 is completed
+                        // Auto-advance to step 7 when step 6 is completed
                         if (currentStep === 6) {
                             setTimeout(() => {
                                 showFinalStep();
@@ -236,11 +210,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (validateCurrentStep()) {
                     completedSteps.add(currentStep);
                     
-                    // Auto-show final step when step 6 is completed
+                    // Auto-advance to step 7 when step 6 is completed
                     if (currentStep === 6) {
                         setTimeout(() => {
                             showFinalStep();
                         }, 300);
+                    }
+                    
+                    // For step 7 consent checkbox - validate step and hide error
+                    if (currentStep === 7) {
+                        const step = this.closest('.widget-step');
+                        const errorDiv = step?.querySelector('.red-error');
+                        if (errorDiv) {
+                            errorDiv.style.display = 'none';
+                        }
+                    }
+                } else {
+                    // Show error if step 7 consent is not checked
+                    if (currentStep === 7) {
+                        const step = this.closest('.widget-step');
+                        const errorDiv = step?.querySelector('.red-error');
+                        if (errorDiv) {
+                            errorDiv.style.display = 'block';
+                        }
                     }
                 }
             });
@@ -290,6 +282,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     isCompleted = true;
                 }
             });
+        } else if (stepType === 'consent') {
+            const consentCheckbox = step.querySelector('input[type="checkbox"][data-step]');
+            if (consentCheckbox && consentCheckbox.checked) {
+                isCompleted = true;
+            }
         }
         
         // Hide error if completed

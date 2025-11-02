@@ -33,7 +33,7 @@
                         <div class="widget-progress-fill" id="progressFill"></div>
                     </div>
                     <div class="widget-progress-text">
-                        <span id="currentStepText">Шаг 1 из 6</span>
+                        <span id="currentStepText">Шаг 1 из 7</span>
                     </div>
                 </div>
 
@@ -357,6 +357,33 @@
                     </div>
                 </div>
 
+                    <!-- Step 7: Consent and submit -->
+                    <div class="step widget-step" data-step="7" data-type="consent">
+                        <div class="num"><span>7</span></div>
+                        <div class="content">
+                            <div class="content-container">
+                                <div class="info">
+                                    <div class="title">Подтверждение согласия</div>
+                                    <div class="subtitle">Для активации гарантии необходимо подтвердить согласие на обработку персональных данных</div>
+                                </div>
+                                <div class="variable">
+                                    <div class="red-error" style="display: none;">Необходимо дать согласие на обработку персональных данных</div>
+                                    <div class="consent-checkbox">
+                                        <input type="checkbox" id="consent" name="consent" required data-step="7">
+                                        <label for="consent">Согласен на обработку персональных данных</label>
+                                    </div>
+                                    <div class="garantiya">Гарантия будет активирована автоматически.</div>
+                                    <div class="privacy-links">
+                                        <a href="/privacy-policy" target="_blank">Политика обработки персональных данных</a>
+                                        <a href="/privacy-agreement" target="_blank">Соглашение на обработку персональных данных</a>
+                                    </div>
+                                    <button type="submit" class="btn" id="submit-btn" disabled><span>АКТИВИРОВАТЬ ГАРАНТИЮ</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Navigation buttons -->
                 <div class="widget-nav" id="widgetNav">
                     <button type="button" class="btn btn-back" id="btnBack" style="display: none;">
@@ -365,23 +392,6 @@
                     <button type="button" class="btn btn-next" id="btnNext">
                         <span>ДАЛЕЕ →</span>
                     </button>
-                </div>
-
-                <!-- Final step: Consent and submit -->
-                <div class="main-btn widget-final" id="widgetFinal" style="display: none;">
-                    <button type="button" class="btn btn-back" id="btnBackFinal" style="margin-bottom: 25px;">
-                        <span>← НАЗАД К ШАГУ 6</span>
-                    </button>
-                    <div class="consent-checkbox">
-                        <input type="checkbox" id="consent" name="consent" required>
-                        <label for="consent">Согласен на обработку персональных данных</label>
-                    </div>
-                    <button type="submit" class="btn" id="submit-btn" disabled><span>АКТИВИРОВАТЬ ГАРАНТИЮ</span></button>
-                    <div class="garantiya">Гарантия будет активирована автоматически.</div>
-                    <div class="privacy-links">
-                        <a href="/privacy-policy" target="_blank">Политика обработки персональных данных</a>
-                        <a href="/privacy-agreement" target="_blank">Соглашение на обработку персональных данных</a>
-                    </div>
                 </div>
             </form>
 
