@@ -20,9 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 $phone = isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : '';
 $contract = isset($_POST['contract']) ? htmlspecialchars($_POST['contract']) : '';
 $additional_work = isset($_POST['additional_work']) ? htmlspecialchars($_POST['additional_work']) : '';
-$sales_rating = isset($_POST['sales_rating']) ? htmlspecialchars($_POST['sales_rating']) : '';
-$delivery_rating = isset($_POST['delivery_rating']) ? htmlspecialchars($_POST['delivery_rating']) : '';
-$installation_rating = isset($_POST['installation_rating']) ? htmlspecialchars($_POST['installation_rating']) : '';
+$sales_rating = isset($_POST['sales_rating']) ? intval($_POST['sales_rating']) : 0;
+$delivery_rating = isset($_POST['delivery_rating']) ? intval($_POST['delivery_rating']) : 0;
+$installation_rating = isset($_POST['installation_rating']) ? intval($_POST['installation_rating']) : 0;
 $sales_feedback_bad = isset($_POST['sales_feedback_bad']) ? htmlspecialchars($_POST['sales_feedback_bad']) : '';
 $delivery_feedback_bad = isset($_POST['delivery_feedback_bad']) ? htmlspecialchars($_POST['delivery_feedback_bad']) : '';
 $installation_feedback_bad = isset($_POST['installation_feedback_bad']) ? htmlspecialchars($_POST['installation_feedback_bad']) : '';
@@ -87,7 +87,7 @@ $message .= "
         
         <div class='section'>
             <h3>3. Оценка работы продавцов</h3>
-            <div class='field'><strong>Рейтинг:</strong> <span class='rating'>" . str_repeat('★', $sales_rating) . str_repeat('☆', 5 - $sales_rating) . "</span> (" . $sales_rating . "/5)</div>";
+            <div class='field'><strong>Рейтинг:</strong> <span class='rating'>" . str_repeat('★', max(0, $sales_rating)) . str_repeat('☆', max(0, 5 - $sales_rating)) . "</span> (" . $sales_rating . "/5)</div>";
 
 if (!empty($sales_feedback_bad)) {
     $message .= "<div class='field'><strong>Комментарий:</strong> " . nl2br($sales_feedback_bad) . "</div>";
@@ -98,7 +98,7 @@ $message .= "
         
         <div class='section'>
             <h3>4. Оценка работы доставки</h3>
-            <div class='field'><strong>Рейтинг:</strong> <span class='rating'>" . str_repeat('★', $delivery_rating) . str_repeat('☆', 5 - $delivery_rating) . "</span> (" . $delivery_rating . "/5)</div>";
+            <div class='field'><strong>Рейтинг:</strong> <span class='rating'>" . str_repeat('★', max(0, $delivery_rating)) . str_repeat('☆', max(0, 5 - $delivery_rating)) . "</span> (" . $delivery_rating . "/5)</div>";
 
 if (!empty($delivery_feedback_bad)) {
     $message .= "<div class='field'><strong>Комментарий:</strong> " . nl2br($delivery_feedback_bad) . "</div>";
@@ -109,7 +109,7 @@ $message .= "
         
         <div class='section'>
             <h3>5. Оценка работы монтажников</h3>
-            <div class='field'><strong>Рейтинг:</strong> <span class='rating'>" . str_repeat('★', $installation_rating) . str_repeat('☆', 5 - $installation_rating) . "</span> (" . $installation_rating . "/5)</div>";
+            <div class='field'><strong>Рейтинг:</strong> <span class='rating'>" . str_repeat('★', max(0, $installation_rating)) . str_repeat('☆', max(0, 5 - $installation_rating)) . "</span> (" . $installation_rating . "/5)</div>";
 
 if (!empty($installation_feedback_bad)) {
     $message .= "<div class='field'><strong>Комментарий:</strong> " . nl2br($installation_feedback_bad) . "</div>";
@@ -199,21 +199,21 @@ if ($additional_work === 'Да' && !empty($work_descriptions)) {
 $telegram_message .= "\n";
 
 $telegram_message .= "⭐️ <b>3. Оценка продавцов</b>\n";
-$telegram_message .= "Рейтинг: " . str_repeat('⭐️', $sales_rating) . " (" . $sales_rating . "/5)\n";
+$telegram_message .= "Рейтинг: " . str_repeat('⭐️', max(0, $sales_rating)) . " (" . $sales_rating . "/5)\n";
 if (!empty($sales_feedback_bad)) {
     $telegram_message .= "Комментарий: " . strip_tags($sales_feedback_bad) . "\n";
 }
 $telegram_message .= "\n";
 
 $telegram_message .= "🚚 <b>4. Оценка доставки</b>\n";
-$telegram_message .= "Рейтинг: " . str_repeat('⭐️', $delivery_rating) . " (" . $delivery_rating . "/5)\n";
+$telegram_message .= "Рейтинг: " . str_repeat('⭐️', max(0, $delivery_rating)) . " (" . $delivery_rating . "/5)\n";
 if (!empty($delivery_feedback_bad)) {
     $telegram_message .= "Комментарий: " . strip_tags($delivery_feedback_bad) . "\n";
 }
 $telegram_message .= "\n";
 
 $telegram_message .= "🔨 <b>5. Оценка монтажников</b>\n";
-$telegram_message .= "Рейтинг: " . str_repeat('⭐️', $installation_rating) . " (" . $installation_rating . "/5)\n";
+$telegram_message .= "Рейтинг: " . str_repeat('⭐️', max(0, $installation_rating)) . " (" . $installation_rating . "/5)\n";
 if (!empty($installation_feedback_bad)) {
     $telegram_message .= "Комментарий: " . strip_tags($installation_feedback_bad) . "\n";
 }
@@ -241,6 +241,9 @@ if ($telegram_bot_token !== "YOUR_BOT_TOKEN_HERE" && $telegram_chat_id !== "YOUR
 // Отправка письма
 $email_sent = mail($to_email, $subject, $message, $headers);
 
+// Устанавливаем заголовок для JSON ответа
+header('Content-Type: application/json; charset=utf-8');
+
 if ($email_sent || $telegram_sent) {
     // Успешная отправка хотя бы одним способом
     $response_message = 'Гарантия успешно активирована!';
@@ -255,13 +258,13 @@ if ($email_sent || $telegram_sent) {
     echo json_encode([
         'success' => true,
         'message' => $response_message
-    ]);
+    ], JSON_UNESCAPED_UNICODE);
 } else {
     // Ошибка отправки
     http_response_code(500);
     echo json_encode([
         'success' => false,
         'message' => 'Ошибка при отправке уведомлений. Попробуйте позже.'
-    ]);
+    ], JSON_UNESCAPED_UNICODE);
 }
 ?>
