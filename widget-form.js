@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (currentStep < totalSteps) {
                 goToStep(currentStep + 1);
             } else {
-                // Step 6 completed, show final step
+                // Step 6 completed, show final step automatically
                 showFinalStep();
             }
         }
@@ -182,13 +182,24 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function showFinalStep() {
         completedSteps.add(currentStep);
+        
+        // Hide step 6
+        const step6 = document.querySelector('.widget-step[data-step="6"]');
+        if (step6) {
+            step6.classList.remove('widget-step-active');
+        }
+        
+        // Update display
         updateStepDisplay();
         
         // Scroll to final step
         setTimeout(() => {
-            document.getElementById('widgetFinal').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            // Отправка размера после показа финального шага
-            setTimeout(sendHeightToParent, 100);
+            const widgetFinal = document.getElementById('widgetFinal');
+            if (widgetFinal) {
+                widgetFinal.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Отправка размера после показа финального шага
+                setTimeout(sendHeightToParent, 100);
+            }
         }, 300);
     }
     
@@ -199,6 +210,13 @@ document.addEventListener('DOMContentLoaded', function() {
             input.addEventListener('change', function() {
                 if (validateCurrentStep()) {
                     completedSteps.add(currentStep);
+                    
+                    // Auto-show final step when step 6 is completed
+                    if (currentStep === totalSteps) {
+                        setTimeout(() => {
+                            showFinalStep();
+                        }, 300);
+                    }
                 }
             });
             
@@ -207,16 +225,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 input.addEventListener('blur', function() {
                     if (validateCurrentStep()) {
                         completedSteps.add(currentStep);
+                        
+                        // Auto-show final step when step 6 is completed
+                        if (currentStep === totalSteps) {
+                            setTimeout(() => {
+                                showFinalStep();
+                            }, 300);
+                        }
                     }
                 });
             }
         });
         
-        // For checkboxes - check on change
+        // For checkboxes - check on change and auto-show final step for step 6
         document.querySelectorAll('.widget-step input[type="checkbox"][data-step]').forEach(checkbox => {
             checkbox.addEventListener('change', function() {
                 if (validateCurrentStep()) {
                     completedSteps.add(currentStep);
+                    
+                    // Auto-show final step when step 6 is completed
+                    if (currentStep === totalSteps) {
+                        setTimeout(() => {
+                            showFinalStep();
+                        }, 300);
+                    }
                 }
             });
         });
