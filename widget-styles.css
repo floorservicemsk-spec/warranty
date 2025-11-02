@@ -252,7 +252,11 @@ body:has(.widget-container) #site::before {
 /* Step 7 - Consent styles */
 .widget-steps .step[data-step="7"] .content-container {
     flex-direction: column;
-    align-items: center;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.widget-steps .step[data-step="7"] .info {
     text-align: center;
 }
 
@@ -280,6 +284,8 @@ body:has(.widget-container) #site::before {
 
 .widget-steps .step[data-step="7"] #submit-btn {
     margin-top: 15px;
+    width: 100%;
+    max-width: 400px;
 }
 
 /* Navigation buttons - Compact */
