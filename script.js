@@ -113,7 +113,7 @@ function initStarRating() {
             
             // Click to select
             star.addEventListener('click', function() {
-                const rating = star.getAttribute('data-star');
+                const rating = parseInt(star.getAttribute('data-star'), 10);
                 input.value = rating;
                 
                 // Remove all active classes
@@ -133,7 +133,7 @@ function initStarRating() {
                 if (rating <= 3) {
                     if (starsBad) starsBad.style.display = 'block';
                     if (starsGood) starsGood.style.display = 'none';
-                } else if (rating == 5) {
+                } else if (rating === 5) {
                     // Only show Yandex review for 5 stars
                     if (starsBad) starsBad.style.display = 'none';
                     if (starsGood) starsGood.style.display = 'block';

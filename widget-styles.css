@@ -1,0 +1,623 @@
+/* Widget form styles - Compact version */
+.widget-container {
+    padding: 15px 20px;
+    padding-bottom: 100px;
+    margin-bottom: 0;
+    max-height: 100vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* Centering for first step */
+.widget-container form {
+    width: 100%;
+}
+
+/* When content is small, center it vertically */
+.widget-container:has(.widget-step[data-step="1"].widget-step-active) {
+    justify-content: center;
+}
+
+/* Compact body for widget */
+body:has(.widget-container),
+html:has(.widget-container) {
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+body:has(.widget-container) #site {
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body:has(.widget-container) #site::before {
+    display: none;
+}
+
+/* Compact header */
+.widget-header-compact {
+    text-align: center;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.widget-logo-compact {
+    max-width: 120px;
+    height: auto;
+    margin-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.widget-title-compact {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.widget-title-compact .b1 {
+    color: #c3202e;
+}
+
+/* Progress indicator */
+.widget-progress {
+    margin-bottom: 20px;
+}
+
+.widget-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.widget-progress-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #c3202e 0%, #e02d3c 100%);
+    border-radius: 8px;
+    transition: width 0.4s ease;
+    width: 14.28%;
+}
+
+.widget-progress-text {
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Step display - Compact */
+.widget-steps .widget-step {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    gap: 15px;
+    margin-bottom: 0;
+}
+
+.widget-steps .widget-step.widget-step-active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.widget-steps .step .num {
+    flex-shrink: 0;
+    width: 35px;
+    height: 35px;
+}
+
+.widget-steps .step .num span {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+}
+
+.widget-steps .step .content {
+    flex: 1;
+    min-width: 0;
+}
+
+.widget-steps .content-container {
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.widget-steps .info .title {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.widget-steps .info .subtitle {
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Compact input styles */
+.widget-steps .input {
+    margin-bottom: 10px;
+}
+
+.widget-steps .input input {
+    padding: 12px 15px;
+    font-size: 14px;
+}
+
+.widget-steps .input-radio {
+    margin-bottom: 10px;
+    padding: 12px 15px;
+}
+
+.widget-steps .input-text {
+    font-size: 14px;
+}
+
+.widget-steps .red-error {
+    margin-bottom: 8px;
+    font-size: 12px;
+}
+
+.widget-steps .input-or {
+    margin: 10px 0;
+    font-size: 12px;
+}
+
+.widget-steps .stars-bad,
+.widget-steps .stars-good {
+    margin-top: 15px;
+}
+
+.widget-steps .stars-bad textarea {
+    padding: 12px;
+    font-size: 13px;
+    min-height: 80px;
+}
+
+.widget-steps .stars-good {
+    padding: 18px;
+}
+
+.widget-steps .stars-good-text {
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+.widget-steps .dops-textarea {
+    margin-top: 15px;
+    padding: 15px;
+}
+
+.widget-steps .line-textarea {
+    margin-bottom: 12px;
+}
+
+.widget-steps .dop-textarea textarea {
+    padding: 12px;
+    font-size: 13px;
+    min-height: 50px;
+}
+
+.widget-steps .big-input-content {
+    min-height: 140px;
+    padding: 15px 12px;
+}
+
+.widget-steps .big-img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+}
+
+.widget-steps .big-title {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.widget-steps .big-text {
+    font-size: 12px;
+}
+
+.widget-steps .step[data-step="6"] .variable {
+    gap: 12px;
+}
+
+.widget-steps .big-input-radio {
+    flex: 0 0 calc(33.333% - 8px);
+    max-width: calc(33.333% - 8px);
+}
+
+/* Step 7 - Consent styles */
+.widget-steps .step[data-step="7"] .content-container {
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.widget-steps .step[data-step="7"] .info {
+    text-align: center;
+}
+
+.widget-steps .step[data-step="7"] .consent-checkbox {
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.widget-steps .step[data-step="7"] .garantiya {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.widget-steps .step[data-step="7"] .privacy-links {
+    margin-top: 15px;
+    margin-bottom: 25px;
+    gap: 10px;
+}
+
+.widget-steps .step[data-step="7"] .privacy-links a {
+    font-size: 12px;
+    padding: 5px 10px;
+}
+
+.widget-steps .step[data-step="7"] #submit-btn {
+    margin-top: 15px;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Navigation buttons - Compact */
+.widget-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 20px;
+    margin-bottom: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
+}
+
+.btn-back {
+    background: linear-gradient(135deg, #666 0%, #888 100%);
+    flex: 0 0 auto;
+    padding: 12px 20px;
+    font-size: 14px;
+}
+
+.btn-back:hover {
+    background: linear-gradient(135deg, #555 0%, #777 100%);
+    transform: translateY(-2px);
+}
+
+.btn-next {
+    flex: 1;
+    max-width: 250px;
+    margin-left: auto;
+    padding: 12px 20px;
+    font-size: 14px;
+}
+
+/* Final step - Compact */
+.widget-final {
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
+}
+
+.widget-final .consent-checkbox {
+    margin-bottom: 15px;
+}
+
+.widget-final .btn {
+    padding: 12px 30px;
+    font-size: 14px;
+}
+
+.widget-final .garantiya {
+    margin-top: 12px;
+    font-size: 12px;
+}
+
+.widget-final .privacy-links {
+    margin-top: 15px;
+    gap: 6px;
+}
+
+.widget-final .privacy-links a {
+    font-size: 11px;
+    padding: 4px 8px;
+}
+
+/* Mobile responsive - Compact */
+@media (max-width: 768px) {
+    .widget-container {
+        padding: 15px 18px;
+        padding-bottom: 120px;
+        margin-bottom: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        justify-content: flex-start;
+        min-height: 100vh;
+        box-sizing: border-box;
+    }
+    
+    body:has(.widget-container) #site {
+        padding: 0;
+        align-items: flex-start;
+    }
+    
+    .widget-header-compact {
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .widget-logo-compact {
+        max-width: 100px;
+        margin-bottom: 8px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .widget-title-compact {
+        font-size: 18px;
+    }
+    
+    .widget-progress {
+        margin-bottom: 15px;
+    }
+    
+    .widget-progress-bar {
+        height: 5px;
+    }
+    
+    .widget-progress-text {
+        font-size: 11px;
+    }
+    
+    .widget-nav {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 15px;
+        margin-bottom: 20px;
+        padding-top: 15px;
+        padding-bottom: 20px;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .btn-back,
+    .btn-next {
+        width: 100%;
+        max-width: 100%;
+        padding: 11px 18px;
+        font-size: 13px;
+    }
+    
+    .widget-final {
+        margin-top: 15px;
+        padding-top: 15px;
+    }
+    
+    .widget-steps .widget-step {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .widget-steps .step .num {
+        width: 32px;
+        height: 32px;
+        margin: 0 auto;
+    }
+    
+    .widget-steps .step .num span {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+    
+    .widget-steps .content-container {
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 12px;
+    }
+    
+    .widget-steps .info {
+        text-align: center;
+    }
+    
+    .widget-steps .info .title {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+    
+    .widget-steps .info .subtitle {
+        font-size: 12px;
+    }
+    
+    .widget-steps .input input {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+    
+    .widget-steps .input-radio {
+        padding: 12px 15px;
+        margin-bottom: 10px;
+    }
+    
+    .widget-steps .stars {
+        gap: 8px;
+    }
+    
+    .widget-steps .star-icon {
+        font-size: 32px;
+    }
+    
+    .widget-steps .star-name {
+        font-size: 11px;
+    }
+    
+    .widget-steps .big-input-content {
+        min-height: 120px;
+        padding: 12px 10px;
+    }
+    
+    .widget-steps .big-img {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 8px;
+    }
+    
+    .widget-steps .big-title {
+        font-size: 13px;
+    }
+    
+    .widget-steps .big-text {
+        font-size: 11px;
+    }
+    
+    .widget-steps .step[data-step="6"] .variable {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .widget-container {
+        padding: 12px 15px;
+        padding-bottom: 120px;
+        margin-bottom: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        box-sizing: border-box;
+    }
+    
+    body:has(.widget-container) #site {
+        padding: 0;
+    }
+    
+    .widget-header-compact {
+        margin-bottom: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .widget-logo-compact {
+        max-width: 90px;
+        margin-bottom: 6px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .widget-title-compact {
+        font-size: 16px;
+    }
+    
+    .widget-progress {
+        margin-bottom: 12px;
+    }
+    
+    .widget-progress-bar {
+        height: 4px;
+        margin-bottom: 6px;
+    }
+    
+    .widget-progress-text {
+        font-size: 10px;
+    }
+    
+    .widget-nav {
+        margin-top: 12px;
+        padding-top: 12px;
+        gap: 8px;
+    }
+    
+    .btn-back,
+    .btn-next {
+        padding: 10px 15px;
+        font-size: 12px;
+    }
+    
+    .widget-final {
+        margin-top: 12px;
+        padding-top: 12px;
+    }
+    
+    .widget-steps .step .num {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .widget-steps .step .num span {
+        width: 28px;
+        height: 28px;
+        font-size: 13px;
+    }
+    
+    .widget-steps .info .title {
+        font-size: 15px;
+    }
+    
+    .widget-steps .info .subtitle {
+        font-size: 11px;
+    }
+    
+    .widget-steps .input input {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+    
+    .widget-steps .star-icon {
+        font-size: 28px;
+    }
+}
+
+/* Animation for step transitions */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.widget-step.widget-step-active {
+    animation: fadeInUp 0.4s ease;
+}
