@@ -129,13 +129,13 @@
             position: relative;
             width: 95%;
             max-width: 1000px;
-            height: 90vh;
+            max-height: 95vh;
             background: white;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             overflow: hidden;
             transform: scale(0.9);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, height 0.3s ease;
         }
         
         .warranty-modal-overlay.active .warranty-modal-content {
@@ -170,6 +170,7 @@
             width: 100%;
             height: 100%;
             border: none;
+            display: block;
         }
         
         /* Адаптив */
@@ -189,8 +190,8 @@
             
             .warranty-modal-content {
                 width: 100%;
-                height: 100vh;
                 max-width: 100%;
+                max-height: 100vh;
                 border-radius: 0;
             }
         }
@@ -223,12 +224,47 @@
     function createModal() {
         const modal = document.createElement('div');
         modal.className = 'warranty-modal-overlay';
-        modal.innerHTML = `
-            <div class="warranty-modal-content">
-                <button class="warranty-modal-close" aria-label="Закрыть">×</button>
-                <iframe class="warranty-modal-iframe" src="${config.formUrl}" title="Активация гарантии"></iframe>
-            </div>
+        const modalContent = document.createElement('div');
+        modalContent.className = 'warranty-modal-content';
+        modalContent.innerHTML = `
+            <button class="warranty-modal-close" aria-label="Закрыть">×</button>
+            <iframe class="warranty-modal-iframe" src="${config.formUrl}" title="Активация гарантии"></iframe>
         `;
+        modal.appendChild(modalContent);
+        
+        // Слушатель для изменения размера iframe
+        const iframe = modalContent.querySelector('.warranty-modal-iframe');
+        
+        // Установка начальной минимальной высоты
+        modalContent.style.height = 'auto';
+        modalContent.style.minHeight = '400px';
+        iframe.style.height = '400px';
+        
+        // Обработка сообщений от iframe для изменения размера
+        const messageHandler = function(event) {
+            // Проверка источника для безопасности (можно настроить под ваш домен)
+            if (event.data && event.data.type === 'warranty-form-resize') {
+                const height = event.data.height;
+                if (height && height > 0) {
+                    // Добавляем небольшой отступ для красоты
+                    const maxHeight = window.innerHeight * 0.95;
+                    const newHeight = Math.min(height + 10, maxHeight);
+                    modalContent.style.height = newHeight + 'px';
+                    modalContent.style.minHeight = newHeight + 'px';
+                    iframe.style.height = height + 'px';
+                }
+            }
+            
+            // Обработка закрытия формы
+            if (event.data && event.data.type === 'warranty-form-close') {
+                closeModal();
+            }
+        };
+        
+        window.addEventListener('message', messageHandler);
+        
+        // Сохранение ссылки на обработчик для удаления при закрытии
+        modalContent._messageHandler = messageHandler;
         
         // Закрытие по клику на overlay
         modal.addEventListener('click', function(e) {
@@ -238,15 +274,17 @@
         });
         
         // Закрытие по кнопке
-        const closeBtn = modal.querySelector('.warranty-modal-close');
+        const closeBtn = modalContent.querySelector('.warranty-modal-close');
         closeBtn.addEventListener('click', closeModal);
         
         // Закрытие по ESC
-        document.addEventListener('keydown', function(e) {
+        const escHandler = function(e) {
             if (e.key === 'Escape' && modal.classList.contains('active')) {
                 closeModal();
+                document.removeEventListener('keydown', escHandler);
             }
-        });
+        };
+        document.addEventListener('keydown', escHandler);
         
         document.body.appendChild(modal);
         return modal;
@@ -277,6 +315,12 @@
     function closeModal() {
         const modal = document.querySelector('.warranty-modal-overlay');
         if (modal) {
+            const modalContent = modal.querySelector('.warranty-modal-content');
+            // Удаление слушателя сообщений при закрытии
+            if (modalContent && modalContent._messageHandler) {
+                window.removeEventListener('message', modalContent._messageHandler);
+            }
+            
             modal.classList.remove('active');
             setTimeout(() => {
                 modal.remove();

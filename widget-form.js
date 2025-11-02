@@ -78,6 +78,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Отправка размера после изменения шага
+            setTimeout(sendHeightToParent, 100);
         }
     }
     
@@ -184,6 +187,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Scroll to final step
         setTimeout(() => {
             document.getElementById('widgetFinal').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Отправка размера после показа финального шага
+            setTimeout(sendHeightToParent, 100);
         }, 300);
     }
     
@@ -270,4 +275,63 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     };
+    
+    // Функция для отправки размера родительскому окну
+    function sendHeightToParent() {
+        if (window.parent !== window) {
+            const height = Math.max(
+                document.body.scrollHeight,
+                document.body.offsetHeight,
+                document.documentElement.clientHeight,
+                document.documentElement.scrollHeight,
+                document.documentElement.offsetHeight
+            );
+            
+            window.parent.postMessage({
+                type: 'warranty-form-resize',
+                height: height
+            }, '*');
+        }
+    }
+    
+    // Отправка размера при загрузке
+    setTimeout(sendHeightToParent, 100);
+    
+    // Отправка размера при изменении содержимого
+    const resizeObserver = new ResizeObserver(function() {
+        sendHeightToParent();
+    });
+    
+    resizeObserver.observe(document.body);
+    
+    // Отправка размера при изменении размера окна
+    window.addEventListener('resize', function() {
+        setTimeout(sendHeightToParent, 100);
+    });
+    
+    // Отправка размера после загрузки всех ресурсов
+    window.addEventListener('load', function() {
+        setTimeout(sendHeightToParent, 200);
+    });
+    
+    // Отправка размера при любых изменениях DOM (для динамического контента)
+    const mutationObserver = new MutationObserver(function() {
+        sendHeightToParent();
+    });
+    
+    mutationObserver.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['style', 'class']
+    });
+    
+    // Отправка размера при успешной отправке формы
+    const originalShowSuccessMessage = window.showSuccessMessage;
+    if (originalShowSuccessMessage) {
+        window.showSuccessMessage = function() {
+            originalShowSuccessMessage();
+            setTimeout(sendHeightToParent, 100);
+        };
+    }
 });
