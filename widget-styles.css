@@ -1,19 +1,33 @@
 /* Widget form styles - Compact version */
 .widget-container {
     padding: 15px 20px;
+    padding-bottom: 15px;
+    margin-bottom: 0;
     max-height: 100vh;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    min-height: auto;
 }
 
 /* Compact body for widget */
-body:has(.widget-container) {
+body:has(.widget-container),
+html:has(.widget-container) {
     padding: 0;
     margin: 0;
+    overflow-x: hidden;
+    height: 100%;
 }
 
 body:has(.widget-container) #site {
-    padding: 10px;
+    padding: 0;
+    margin: 0;
     min-height: 100vh;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+body:has(.widget-container) #site::before {
+    display: none;
 }
 
 /* Compact header */
@@ -215,7 +229,9 @@ body:has(.widget-container) #site {
     justify-content: space-between;
     gap: 12px;
     margin-top: 20px;
+    margin-bottom: 0;
     padding-top: 20px;
+    padding-bottom: 0;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -243,6 +259,8 @@ body:has(.widget-container) #site {
 .widget-final {
     margin-top: 20px;
     padding-top: 20px;
+    padding-bottom: 15px;
+    margin-bottom: 0;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -406,6 +424,14 @@ body:has(.widget-container) #site {
 @media (max-width: 480px) {
     .widget-container {
         padding: 12px 15px;
+        padding-bottom: 12px;
+        margin-bottom: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    body:has(.widget-container) #site {
+        padding: 0;
     }
     
     .widget-header-compact {
