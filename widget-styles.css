@@ -1,7 +1,7 @@
 /* Widget form styles - Compact version */
 .widget-container {
     padding: 15px 20px;
-    padding-bottom: 15px;
+    padding-bottom: 100px;
     margin-bottom: 0;
     max-height: 100vh;
     overflow-y: auto;
@@ -11,6 +11,7 @@
     flex-direction: column;
     justify-content: center;
     min-height: 100vh;
+    box-sizing: border-box;
 }
 
 /* Centering for first step */
@@ -248,8 +249,10 @@ body:has(.widget-container) #site::before {
     margin-top: 20px;
     margin-bottom: 0;
     padding-top: 20px;
-    padding-bottom: 0;
+    padding-bottom: 20px;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
 }
 
 .btn-back {
@@ -276,9 +279,11 @@ body:has(.widget-container) #site::before {
 .widget-final {
     margin-top: 20px;
     padding-top: 20px;
-    padding-bottom: 15px;
+    padding-bottom: 30px;
     margin-bottom: 0;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
 }
 
 .widget-final .consent-checkbox {
@@ -309,10 +314,18 @@ body:has(.widget-container) #site::before {
 @media (max-width: 768px) {
     .widget-container {
         padding: 15px 18px;
+        padding-bottom: 120px;
+        margin-bottom: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        justify-content: flex-start;
+        min-height: 100vh;
+        box-sizing: border-box;
     }
     
-    .widget-header-compact {
-        margin-bottom: 15px;
+    body:has(.widget-container) #site {
+        padding: 0;
+        align-items: flex-start;
     }
     
     .widget-logo-compact {
@@ -340,7 +353,11 @@ body:has(.widget-container) #site::before {
         flex-direction: column;
         gap: 10px;
         margin-top: 15px;
+        margin-bottom: 20px;
         padding-top: 15px;
+        padding-bottom: 20px;
+        position: relative;
+        z-index: 10;
     }
     
     .btn-back,
@@ -441,10 +458,11 @@ body:has(.widget-container) #site::before {
 @media (max-width: 480px) {
     .widget-container {
         padding: 12px 15px;
-        padding-bottom: 12px;
+        padding-bottom: 120px;
         margin-bottom: 0;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
+        box-sizing: border-box;
     }
     
     body:has(.widget-container) #site {
