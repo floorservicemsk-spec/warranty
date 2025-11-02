@@ -7,6 +7,20 @@
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     min-height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Centering for first step */
+.widget-container form {
+    width: 100%;
+}
+
+/* When content is small, center it vertically */
+.widget-container:has(.widget-step[data-step="1"].widget-step-active) {
+    justify-content: center;
 }
 
 /* Compact body for widget */
@@ -24,6 +38,9 @@ body:has(.widget-container) #site {
     min-height: 100vh;
     overflow-x: hidden;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 body:has(.widget-container) #site::before {
