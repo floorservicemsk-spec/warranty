@@ -98,7 +98,7 @@ body:has(.widget-container) #site::before {
     background: linear-gradient(135deg, #c3202e 0%, #e02d3c 100%);
     border-radius: 8px;
     transition: width 0.4s ease;
-    width: 14.28%;
+    width: 16.66%;
 }
 
 .widget-progress-text {
@@ -247,39 +247,6 @@ body:has(.widget-container) #site::before {
 .widget-steps .big-input-radio {
     flex: 0 0 calc(33.333% - 8px);
     max-width: calc(33.333% - 8px);
-}
-
-/* Step 7 - Consent styles */
-.widget-steps .step[data-step="7"] .content-container {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.widget-steps .step[data-step="7"] .consent-checkbox {
-    margin-bottom: 20px;
-    justify-content: center;
-}
-
-.widget-steps .step[data-step="7"] .garantiya {
-    margin-top: 15px;
-    margin-bottom: 20px;
-    font-size: 14px;
-}
-
-.widget-steps .step[data-step="7"] .privacy-links {
-    margin-top: 15px;
-    margin-bottom: 25px;
-    gap: 10px;
-}
-
-.widget-steps .step[data-step="7"] .privacy-links a {
-    font-size: 12px;
-    padding: 5px 10px;
-}
-
-.widget-steps .step[data-step="7"] #submit-btn {
-    margin-top: 15px;
 }
 
 /* Navigation buttons - Compact */
