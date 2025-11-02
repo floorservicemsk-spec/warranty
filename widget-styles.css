@@ -52,12 +52,20 @@ body:has(.widget-container) #site::before {
 .widget-header-compact {
     text-align: center;
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 .widget-logo-compact {
     max-width: 120px;
     height: auto;
     margin-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .widget-title-compact {
@@ -328,9 +336,20 @@ body:has(.widget-container) #site::before {
         align-items: flex-start;
     }
     
+    .widget-header-compact {
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
     .widget-logo-compact {
         max-width: 100px;
         margin-bottom: 8px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
     }
     
     .widget-title-compact {
@@ -471,11 +490,18 @@ body:has(.widget-container) #site::before {
     
     .widget-header-compact {
         margin-bottom: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
     
     .widget-logo-compact {
         max-width: 90px;
         margin-bottom: 6px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
     }
     
     .widget-title-compact {
