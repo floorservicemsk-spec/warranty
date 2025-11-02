@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Активация стандартной гарантии на напольные покрытия</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/imask"></script>
+</head>
+<body>
+    <div id="site">
+        <div class="container">
+            <div class="container-border"></div>
+            <form id="warrantyForm" method="post" action="send-warranty.php">
+                <div class="header">
+                    <h1>
+                        <img src="images/logo.svg" alt="Логотип" class="logo-image">
+                        <span class="main-title"><span class="b1">Активация гарантийного талона</span></span>
+                    </h1>
+                    <h3 class="subtitle">Уважаемый заказчик, для активации гарантии Вам необходимо заполнить эту анкету. Гарантия будет активирована при заполнении анкеты и согласия на обработку персональных данных.</h3>
+                </div>
+
+                <div class="steps">
+                    <!-- Step 1: Identification -->
+                    <div class="step" data-step="1" data-type="input">
+                        <div class="num"><span>1</span></div>
+                        <div class="content">
+                            <div class="content-container">
+                                <div class="info">
+                                    <div class="title">Идентификация</div>
+                                    <div class="subtitle">Пожалуйста, введите номер телефона или договора,<br> на который был сделан заказ</div>
+                                </div>
+                                <div class="variable">
+                                    <div class="red-error" style="display: none;">Вы пропустили этот вопрос</div>
+                                    <div class="input">
+                                        <input type="text" name="phone" id="phone-input" placeholder="+7 (___) ___-__-__" data-step="1">
+                                    </div>
+                                    <div class="input-or">или</div>
+                                    <div class="input">
+                                        <input type="text" name="contract" placeholder="Например, 123" data-step="1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Additional work -->
+                    <div class="step" data-step="2" data-type="radio">
+                        <div class="num"><span>2</span></div>
+                        <div class="content">
+                            <div class="content-container">
+                                <div class="info">
+                                    <div class="title">Дополнительные работы, которые не вошли в договор</div>
+                                    <div class="subtitle">Если были дополнительные работы, которые не перечислены в договоре,<br> укажите их здесь, чтобы включить их в гарантию.<br><br>Вы оплачивали дополнительные работы, незафиксированные в договоре?<br><br></div>
+                                </div>
+                                <div class="variable">
+                                    <div class="red-error" style="display: none;">Вы пропустили этот вопрос</div>
+                                    <label class="input-radio radio">
+                                        <input type="radio" name="additional_work" value="Да" data-step="2">
+                                        <div class="input-left"></div>
+                                        <div class="input-text">Да</div>
+                                    </label>
+                                    <label class="input-radio radio">
+                                        <input type="radio" name="additional_work" value="Нет" data-step="2">
+                                        <div class="input-left"></div>
+                                        <div class="input-text">Нет</div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="dops-textarea" data-val="Да" style="display: none;">
+                                <div class="line-textarea" data-i="1">
+                                    <div class="dop-textarea">
+                                        <textarea name="work_description[]" placeholder="Напишите, какие дополнительные работы были выполнены"></textarea>
+                                    </div>
+                                    <div class="dop-textarea">
+                                        <textarea name="work_cost[]" placeholder="Стоимость работ (руб.)"></textarea>
+                                    </div>
+                                    <div class="dop-remove">
+                                        <svg height="329pt" viewBox="0 0 329.26933 329" width="329pt" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="m194.800781 164.769531 128.210938-128.214843c8.34375-8.339844 8.34375-21.824219 0-30.164063-8.339844-8.339844-21.824219-8.339844-30.164063 0l-128.214844 128.214844-128.210937-128.214844c-8.34375-8.339844-21.824219-8.339844-30.164063 0-8.34375 8.339844-8.34375 21.824219 0 30.164063l128.210938 128.214843-128.210938 128.214844c-8.34375 8.339844-8.34375 21.824219 0 30.164063 4.15625 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921875-2.089844 15.082031-6.25l128.210937-128.214844 128.214844 128.214844c4.160156 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921874-2.089844 15.082031-6.25 8.34375-8.339844 8.34375-21.824219 0-30.164063zm0 0"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="dops-add">
+                                    <div class="dop-add">
+                                        <span class="d-1">
+                                            <svg height="426.66667pt" viewBox="0 0 426.66667 426.66667" width="426.66667pt" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="m405.332031 192h-170.664062v-170.667969c0-11.773437-9.558594-21.332031-21.335938-21.332031-11.773437 0-21.332031 9.558594-21.332031 21.332031v170.667969h-170.667969c-11.773437 0-21.332031 9.558594-21.332031 21.332031 0 11.777344 9.558594 21.335938 21.332031 21.335938h170.667969v170.664062c0 11.777344 9.558594 21.335938 21.332031 21.335938 11.777344 0 21.335938-9.558594 21.335938-21.335938v-170.664062h170.664062c11.777344 0 21.335938-9.558594 21.335938-21.335938 0-11.773437-9.558594-21.332031-21.335938-21.332031zm0 0"/>
+                                            </svg>
+                                        </span>
+                                        <span class="d-2">Добавить еще</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Sales rating -->
+                    <div class="step" data-step="3" data-type="stars">
+                        <div class="num"><span>3</span></div>
+                        <div class="content">
+                            <div class="content-container">
+                                <div class="info">
+                                    <div class="title">Работа продавцов</div>
+                                    <div class="subtitle">Оцените по 5-балльной шкале,<br> насколько продавец был внимателен<br> к вашим желаниям и подбирал<br> лучшее решение</div>
+                                </div>
+                                <div class="variable">
+                                    <div class="red-error" style="display: none;">Вы пропустили этот вопрос</div>
+                                    <div class="stars hover-start" data-rating="sales">
+                                        <input type="hidden" name="sales_rating" value="" data-step="3">
+                                        <div class="star hover" data-star="1">
+                                            <div class="star-icon">★</div>
+                                            <div class="star-name">Ужасно</div>
+                                        </div>
+                                        <div class="star hover" data-star="2">
+                                            <div class="star-icon">★</div>
+                                            <div class="star-name">Плохо</div>
+                                        </div>
+                                        <div class="star hover" data-star="3">
+                                            <div class="star-icon">★</div>
+                                            <div class="star-name">Не понравилось</div>
+                                        </div>
+                                        <div class="star hover" data-star="4">
+                                            <div class="star-icon">★</div>
+                                            <div class="star-name">Хорошо</div>
+                                        </div>
+                                        <div class="star hover" data-star="5">
+                                            <div class="star-icon">★</div>
+                                            <div class="star-name">Отлично</div>
+                                            <div class="star-start">Средняя<br>оценка 5 баллов</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stars-bad" style="display: none;">
+                                <textarea name="sales_feedback_bad" placeholder="Спасибо за то, что помогаете нам исправиться и стать лучше. Напишите, что вам не понравилось в нашей работе. С вами свяжется представитель отдела контроля качества."></textarea>
+                            </div>
+                            <div class="stars-good" style="display: none;">
+                                <div class="stars-good-text">Поделитесь вашим впечатлением о качестве работы на сайте <span class="red">Я</span>ндекс.Отзывы.<br> Это поможет другим людям сделать правильный выбор.</div>
+                                <div class="stars-btns">
+                                    <a class="btn" href="https://yandex.ru/maps-reviews-widget/1829831566?comments" target="_blank"><span>ОСТАВИТЬ ОТЗЫВ</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Delivery rating -->
+                    <div class="step" data-step="4" data-type="stars">
+                        <div class="num"><span>4</span></div>
+                        <div class="content">
+                            <div class="content-container">
+                                <div class="info">
+                                    <div class="title">Работа доставки</div>
+                                    <div class="subtitle">Оцените по 5-балльной шкале,<br> насколько быстро и аккуратно<br> доставили Вашу покупку</div>
+                                </div>
+                                <div class="variable">
+                                    <div class="red-error" style="display: none;">Вы пропустили этот вопрос</div>
+                                    <div class="stars hover-start" data-rating="delivery">
+                                        <input type="hidden" name="delivery_rating" value="" data-step="4">
+                                        <div class="star hover" data-star="1">
+                                            <div class="star-icon">★</div>
+                                            <div class="star-name">Ужасно</div>
+                                        </div>
+                                        <div class="star hover" data-star="2">
+                                            <div class="star-icon">★</div>
+                                            <div class="star-name">Плохо</div>
+                                        </div>
+                                        <div class="star hover" data-star="3">
+                                            <div class="star-icon">★</div>
+                                            <div class="star-name">Не понравилось</div>
+                                        </div>
+                                        <div class="star hover" data-star="4">
+                                            <div class="star-icon">★</div>
+                                            <div class="star-name">Хорошо</div>
+                                        </div>
+                                        <div class="star hover" data-star="5">
+                                            <div class="star-icon">★</div>
+                                            <div class="star-name">Отлично</div>
+                                            <div class="star-start">Средняя<br>оценка 5 баллов</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stars-bad" style="display: none;">
+                                <textarea name="delivery_feedback_bad" placeholder="Спасибо за то, что помогаете нам исправиться и стать лучше. Напишите, что вам не понравилось в нашей работе. С вами свяжется представитель отдела контроля качества."></textarea>
+                            </div>
+                            <div class="stars-good" style="display: none;">
+                                <div class="stars-good-text">Поделитесь вашим впечатлением о качестве работы на сайте <span class="red">Я</span>ндекс.Отзывы.<br> Это поможет другим людям сделать правильный выбор.</div>
+                                <div class="stars-btns">
+                                    <a class="btn" href="https://yandex.ru/maps-reviews-widget/1829831566?comments" target="_blank"><span>ОСТАВИТЬ ОТЗЫВ</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Installation rating -->
+                    <div class="step" data-step="5" data-type="stars">
+                        <div class="num"><span>5</span></div>
+                        <div class="content">
+                            <div class="content-container">
+                                <div class="info">
+                                    <div class="title">Работа монтажников<br> (если заказывали монтаж<br> в нашей компании)</div>
+                                    <div class="subtitle">Оцените по 5-балльной шкале,<br> насколько качественно<br> уложили напольное покрытие</div>
+                                </div>
+                                <div class="variable">
+                                    <div class="red-error" style="display: none;">Вы пропустили этот вопрос</div>
+                                    <div class="stars hover-start" data-rating="installation">
+                                        <input type="hidden" name="installation_rating" value="" data-step="5">
+                                        <div class="star hover" data-star="1">
+                                            <div class="star-icon">★</div>
+                                            <div class="star-name">Ужасно</div>
+                                        </div>
+                                        <div class="star hover" data-star="2">
+                                            <div class="star-icon">★</div>
+                                            <div class="star-name">Плохо</div>
+                                        </div>
+                                        <div class="star hover" data-star="3">
+                                            <div class="star-icon">★</div>
+                                            <div class="star-name">Не понравилось</div>
+                                        </div>
+                                        <div class="star hover" data-star="4">
+                                            <div class="star-icon">★</div>
+                                            <div class="star-name">Хорошо</div>
+                                        </div>
+                                        <div class="star hover" data-star="5">
+                                            <div class="star-icon">★</div>
+                                            <div class="star-name">Отлично</div>
+                                            <div class="star-start">Средняя<br>оценка 5 баллов</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stars-bad" style="display: none;">
+                                <textarea name="installation_feedback_bad" placeholder="Спасибо за то, что помогаете нам исправиться и стать лучше. Напишите, что вам не понравилось в нашей работе. С вами свяжется представитель отдела контроля качества."></textarea>
+                            </div>
+                            <div class="stars-good" style="display: none;">
+                                <div class="stars-good-text">Поделитесь вашим впечатлением о качестве работы на сайте <span class="red">Я</span>ндекс.Отзывы.<br> Это поможет другим людям сделать правильный выбор.</div>
+                                <div class="stars-btns">
+                                    <a class="btn" href="https://yandex.ru/maps/" target="_blank"><span>ОСТАВИТЬ ОТЗЫВ</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 6: Discounts -->
+                    <div class="step" data-step="6" data-type="bigcheckbox">
+                        <div class="num"><span>6</span></div>
+                        <div class="content">
+                            <div class="content-container">
+                                <div class="info">
+                                    <div class="title">Забронируйте скидку на сопутствующие товары и укладку</div>
+                                    <div class="subtitle">Можете выбрать один или несколько вариантов</div>
+                                </div>
+                                <div class="variable">
+                                    <div class="red-error" style="display: none;">Вы пропустили этот вопрос</div>
+                                    
+                                    <label class="big-input-radio big-checkbox">
+                                        <input type="checkbox" name="discounts[]" value="Клей" data-step="6">
+                                        <div class="big-input-content">
+                                            <div class="input-left">
+                                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 417.065 417.065">
+                                                    <path d="M401.56,47.087c-17.452-14.176-42.561-12.128-56.095,4.536L167.042,271.598L73.913,150.58 c-13.892-18.037-39.781-21.411-57.819-7.535c-18.054,13.884-21.427,39.781-7.535,57.843l125.001,162.433 c13.892,18.037,39.789,21.419,57.835,7.535c5.145-3.959,8.95-8.958,11.648-14.42l205.645-253.514 C422.215,86.234,419.02,61.247,401.56,47.087z"/>
+                                                </svg>
+                                            </div>
+                                            <div class="big-active"></div>
+                                            <div class="big-img" style="background-image: url('images/gl.png');"></div>
+                                            <div class="big-title">Клей</div>
+                                            <div class="big-text">Скидка 10%</div>
+                                        </div>
+                                    </label>
+
+                                    <label class="big-input-radio big-checkbox">
+                                        <input type="checkbox" name="discounts[]" value="Плинтус" data-step="6">
+                                        <div class="big-input-content">
+                                            <div class="input-left">
+                                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 417.065 417.065">
+                                                    <path d="M401.56,47.087c-17.452-14.176-42.561-12.128-56.095,4.536L167.042,271.598L73.913,150.58 c-13.892-18.037-39.781-21.411-57.819-7.535c-18.054,13.884-21.427,39.781-7.535,57.843l125.001,162.433 c13.892,18.037,39.789,21.419,57.835,7.535c5.145-3.959,8.95-8.958,11.648-14.42l205.645-253.514 C422.215,86.234,419.02,61.247,401.56,47.087z"/>
+                                                </svg>
+                                            </div>
+                                            <div class="big-active"></div>
+                                            <div class="big-img" style="background-image: url('images/pl.png');"></div>
+                                            <div class="big-title">Плинтус</div>
+                                            <div class="big-text">Скидка 5%</div>
+                                        </div>
+                                    </label>
+
+                                    <label class="big-input-radio big-checkbox">
+                                        <input type="checkbox" name="discounts[]" value="Подложка" data-step="6">
+                                        <div class="big-input-content">
+                                            <div class="input-left">
+                                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 417.065 417.065">
+                                                    <path d="M401.56,47.087c-17.452-14.176-42.561-12.128-56.095,4.536L167.042,271.598L73.913,150.58 c-13.892-18.037-39.781-21.411-57.819-7.535c-18.054,13.884-21.427,39.781-7.535,57.843l125.001,162.433 c13.892,18.037,39.789,21.419,57.835,7.535c5.145-3.959,8.95-8.958,11.648-14.42l205.645-253.514 C422.215,86.234,419.02,61.247,401.56,47.087z"/>
+                                                </svg>
+                                            </div>
+                                            <div class="big-active"></div>
+                                            <div class="big-img" style="background-image: url('images/pod.png');"></div>
+                                            <div class="big-title">Подложка</div>
+                                            <div class="big-text">Скидка 5%</div>
+                                        </div>
+                                    </label>
+
+                                    <label class="big-input-radio big-checkbox">
+                                        <input type="checkbox" name="discounts[]" value="Грунтовка" data-step="6">
+                                        <div class="big-input-content">
+                                            <div class="input-left">
+                                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 417.065 417.065">
+                                                    <path d="M401.56,47.087c-17.452-14.176-42.561-12.128-56.095,4.536L167.042,271.598L73.913,150.58 c-13.892-18.037-39.781-21.411-57.819-7.535c-18.054,13.884-21.427,39.781-7.535,57.843l125.001,162.433 c13.892,18.037,39.789,21.419,57.835,7.535c5.145-3.959,8.95-8.958,11.648-14.42l205.645-253.514 C422.215,86.234,419.02,61.247,401.56,47.087z"/>
+                                                </svg>
+                                            </div>
+                                            <div class="big-active"></div>
+                                            <div class="big-img" style="background-image: url('images/Gr.png');"></div>
+                                            <div class="big-title">Грунтовка</div>
+                                            <div class="big-text">Скидка 10%</div>
+                                        </div>
+                                    </label>
+
+                                    <label class="big-input-radio big-checkbox">
+                                        <input type="checkbox" name="discounts[]" value="Укладка" data-step="6">
+                                        <div class="big-input-content">
+                                            <div class="input-left">
+                                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 417.065 417.065">
+                                                    <path d="M401.56,47.087c-17.452-14.176-42.561-12.128-56.095,4.536L167.042,271.598L73.913,150.58 c-13.892-18.037-39.781-21.411-57.819-7.535c-18.054,13.884-21.427,39.781-7.535,57.843l125.001,162.433 c13.892,18.037,39.789,21.419,57.835,7.535c5.145-3.959,8.95-8.958,11.648-14.42l205.645-253.514 C422.215,86.234,419.02,61.247,401.56,47.087z"/>
+                                                </svg>
+                                            </div>
+                                            <div class="big-active"></div>
+                                            <div class="big-img" style="background-image: url('images/yk.png');"></div>
+                                            <div class="big-title">Укладка</div>
+                                            <div class="big-text">Скидка 30%</div>
+                                        </div>
+                                    </label>
+
+                                    <label class="input-radio radio full-width">
+                                        <input type="checkbox" name="discounts[]" value="Ничего не нужно" data-step="6" id="nothing-needed">
+                                        <div class="input-left"></div>
+                                        <div class="input-text">Ничего не нужно</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="main-btn">
+                    <div class="consent-checkbox">
+                        <input type="checkbox" id="consent" name="consent" required>
+                        <label for="consent">Согласен на обработку персональных данных</label>
+                    </div>
+                    <button type="submit" class="btn" id="submit-btn" disabled><span>АКТИВИРОВАТЬ ГАРАНТИЮ</span></button>
+                    <div class="garantiya">Гарантия будет активирована автоматически.</div>
+                    <div class="privacy-links">
+                        <a href="/privacy-policy" target="_blank">Политика обработки персональных данных</a>
+                        <a href="/privacy-agreement" target="_blank">Соглашение на обработку персональных данных</a>
+                    </div>
+                </div>
+            </form>
+
+            <h1 class="end" style="display: none;"><span class="b1">Спасибо!<br>Гарантийный талон активирован</span></h1>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+<script src="warranty-widget.js"></script>
+</body>
+</html>
