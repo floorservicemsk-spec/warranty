@@ -9,7 +9,7 @@
     // Конфигурация виджета
     const config = {
         // URL страницы с формой гарантии
-        formUrl: 'warranty.html', // Измените на полный URL если форма на другом домене
+        formUrl: 'index.html', // Измените на полный URL если форма на другом домене
         
         // Позиция кнопки: 'bottom-right', 'bottom-left', 'top-right', 'top-left'
         position: 'bottom-right',
